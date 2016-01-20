@@ -40,6 +40,10 @@ public class NotebookRepoRestApi {
   private NotebookRepoSync notebookRepoSync;
   Gson gson = new Gson();
 
+  public NotebookRepoSync(NotebookRepoSync notebookRepoSync) {
+    this.notebookRepoSync = notebookRepoSync;
+  }
+
   /**
    * Add new Load Notebook Repo
    * @param message
@@ -55,23 +59,27 @@ public class NotebookRepoRestApi {
     JsonObject jsonRepository = new JsonParser().parse(message).
       getAsJsonObject().getAsJsonObject("repository");
 
-    try {
-      if (jsonRepository == null) {
-        logger.info("Notebook Repository is successfully loaded without Maven Repository");
-        notebookRepoSync.loadDynamicNoteBookStoreage(request.getArtifact(),
-          request.getClassName());
+    if (request != null) {
+      try {
+        if (jsonRepository == null) {
+          notebookRepoSync.loadDynamicNoteBookStorage(request.getArtifact(),
+            request.getClassName());
+          logger.info("Notebook Repository is successfully loaded without Maven Repository");
 
-        return new JsonResponse(Response.Status.CREATED, "200 OK", message).build();
-      } else {
-        logger.info("Notebook Repository is successfully loaded with Maven Repository");
-        notebookRepoSync.loadDynamicNoteBookStoreage(request.getArtifact(),
-          request.getClassName(),
-          request.getRepository().getUrl(), request.getRepository().getSnapshot());
+          return new JsonResponse(Response.Status.CREATED, "200 OK", message).build();
+        } else {
+          logger.info("Notebook Repository is successfully loaded with Maven Repository");
+          notebookRepoSync.loadDynamicNoteBookStorage(request.getArtifact(),
+            request.getClassName(),
+            request.getRepository().getUrl(), request.getRepository().getSnapshot());
 
-        return new JsonResponse(Response.Status.CREATED, "200 OK", message).build();
+          return new JsonResponse(Response.Status.CREATED, "200 OK", message).build();
+        }
+      } catch (Exception e) {
+        return new JsonResponse(Response.Status.INTERNAL_SERVER_ERROR, "500", message).build();
+        logger.info("Notebook Repository Loading Failed");
       }
-    } catch (Exception e) {
-      return new JsonResponse(Response.Status.INTERNAL_SERVER_ERROR, "500", message).build();
     }
+    return new JsonResponse(Response.Status.NOT_FOUND, "Null Request", message).build();
   }
 }

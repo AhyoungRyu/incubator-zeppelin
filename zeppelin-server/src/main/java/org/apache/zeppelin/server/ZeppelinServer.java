@@ -70,6 +70,7 @@ public class ZeppelinServer extends Application {
   private InterpreterFactory replFactory;
   private NotebookRepo notebookRepo;
   private SearchService notebookIndex;
+  private NotebookRepoSync notebookRepoSync;
 
   public ZeppelinServer() throws Exception {
     ZeppelinConfiguration conf = ZeppelinConfiguration.create();
@@ -281,7 +282,7 @@ public class ZeppelinServer extends Application {
     SecurityRestApi securityApi = new SecurityRestApi();
     singletons.add(securityApi);
 
-    NotebookRepoRestApi notebookRepoApi = new NotebookRepoRestApi();
+    NotebookRepoRestApi notebookRepoApi = new NotebookRepoRestApi(notebookRepoSync);
     singletons.add(notebookRepoApi);
 
     return singletons;
