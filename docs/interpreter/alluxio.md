@@ -6,7 +6,10 @@ group: manual
 ---
 {% include JB/setup %}
 
-## Alluxio Interpreter for Apache Zeppelin
+# Alluxio Interpreter for Apache Zeppelin
+
+<div id="toc"></div>
+
 [Alluxio](http://alluxio.org/) is a memory-centric distributed storage system enabling reliable data sharing at memory-speed across cluster frameworks.
 
 ## Configuration

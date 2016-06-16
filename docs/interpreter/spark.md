@@ -7,7 +7,10 @@ group: manual
 {% include JB/setup %}
 
 
-## Spark Interpreter for Apache Zeppelin
+# Spark Interpreter for Apache Zeppelin
+
+<div id="toc"></div>
+
 [Apache Spark](http://spark.apache.org) is supported in Zeppelin with
 Spark Interpreter group, which consists of five interpreters.
 
@@ -339,7 +342,7 @@ select * from ${table=defaultTableName} where text like '%${search}%'
 To learn more about dynamic form, checkout [Dynamic Form](../manual/dynamicform.html).
 
 
-### Interpreter setting option.
+## Interpreter setting option
 
 Interpreter setting can choose one of 'shared', 'scoped', 'isolated' option. Spark interpreter creates separate scala compiler per each notebook but share a single SparkContext in 'scoped' mode (experimental). It creates separate SparkContext per each notebook in 'isolated' mode.
 
@@ -349,7 +352,7 @@ Logical setup with Zeppelin, Kerberos Key Distribution Center (KDC), and Spark o
 
 <img src="../assets/themes/zeppelin/img/docs-img/kdc_zeppelin.png">
 
-####Configuration Setup
+### Configuration Setup
 
 1. On the server that Zeppelin is installed, install Kerberos client modules and configuration, krb5.conf.
 This is to make the server communicate with KDC.

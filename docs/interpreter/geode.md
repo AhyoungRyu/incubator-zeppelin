@@ -6,7 +6,10 @@ group: manual
 ---
 {% include JB/setup %}
 
-## Geode/Gemfire OQL Interpreter for Apache Zeppelin
+# Geode/Gemfire OQL Interpreter for Apache Zeppelin
+
+<div id="toc"></div>
+
 <table class="table-configuration">
   <tr>
     <th>Name</th>
@@ -33,7 +36,7 @@ This interpreter supports the [Geode](http://geode.incubator.apache.org/) [Objec
 
 This [Video Tutorial](https://www.youtube.com/watch?v=zvzzA9GXu3Q) illustrates some of the features provided by the `Geode Interpreter`.
 
-### Create Interpreter
+## Create Interpreter
 By default Zeppelin creates one `Geode/OQL` instance. You can remove it or create more instances.
 
 Multiple Geode instances can be created, each configured to the same or different backend Geode cluster. But over time a  `Notebook` can have only one Geode interpreter instance `bound`. That means you _cannot_ connect to different Geode clusters in the same `Notebook`. This is a known Zeppelin limitation.
@@ -42,10 +45,10 @@ To create new Geode instance open the `Interpreter` section and click the `+Crea
 
 > Note: The `Name` of the instance is used only to distinguish the instances while binding them to the `Notebook`. The `Name` is irrelevant inside the `Notebook`. In the `Notebook` you must use `%geode.oql` tag.
 
-### Bind to Notebook
+## Bind to Notebook
 In the `Notebook` click on the `settings` icon in the top right corner. The select/deselect the interpreters to be bound with the `Notebook`.
 
-### Configuration
+## Configuration
 You can modify the configuration of the Geode from the `Interpreter` section.  The Geode interpreter expresses the following properties:
 
 <table class="table-configuration">
@@ -71,7 +74,7 @@ You can modify the configuration of the Geode from the `Interpreter` section.  T
   </tr>
 </table>
 
-### How to use
+## How to use
 > *Tip 1: Use (CTRL + .) for OQL auto-completion.*
 
 > *Tip 2: Always start the paragraphs with the full `%geode.oql` prefix tag! The short notation: `%geode` would still be able run the OQL queries but the syntax highlighting and the auto-completions will be disabled.*
@@ -183,5 +186,5 @@ http-service-port=8484
 start-dev-rest-api=true
 ```
 
-### Auto-completion
+## Auto-completion
 The Geode Interpreter provides a basic auto-completion functionality. On `(Ctrl+.)` it list the most relevant suggestions in a pop-up window.

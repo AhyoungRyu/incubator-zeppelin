@@ -6,7 +6,10 @@ group: manual
 ---
 {% include JB/setup %}
 
-## HBase Shell Interpreter for Apache Zeppelin
+# HBase Shell Interpreter for Apache Zeppelin
+
+<div id="toc"></div>
+
 [HBase Shell](http://hbase.apache.org/book.html#shell) is a JRuby IRB client for Apache HBase. This interpreter provides all capabilities of Apache HBase shell within Apache Zeppelin. The interpreter assumes that Apache HBase client software has been installed and it can connect to the Apache HBase cluster from the machine on where Apache Zeppelin is installed.  
 To get start with HBase, please see [HBase Quickstart](https://hbase.apache.org/book.html#quickstart)
 

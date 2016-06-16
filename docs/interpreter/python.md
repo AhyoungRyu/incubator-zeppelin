@@ -6,7 +6,9 @@ group: manual
 ---
 {% include JB/setup %}
 
-## Python 2 & 3 Interpreter for Apache Zeppelin
+# Python 2 & 3 Interpreter for Apache Zeppelin
+
+<div id="toc"></div>
 
 ## Configuration
 <table class="table-configuration">

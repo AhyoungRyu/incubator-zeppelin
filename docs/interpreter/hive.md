@@ -6,7 +6,10 @@ group: manual
 ---
 {% include JB/setup %}
 
-## Hive Interpreter for Apache Zeppelin
+# Hive Interpreter for Apache Zeppelin
+
+<div id="toc"></div>
+
 The [Apache Hive](https://hive.apache.org/) ™ data warehouse software facilitates querying and managing large datasets residing in distributed storage. Hive provides a mechanism to project structure onto this data and query the data using a SQL-like language called HiveQL. At the same time this language also allows traditional map/reduce programmers to plug in their custom mappers and reducers when it is inconvenient or inefficient to express this logic in HiveQL.
 
 ## Important Notice
