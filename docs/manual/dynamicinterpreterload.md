@@ -19,7 +19,9 @@ limitations under the License.
 -->
 {% include JB/setup %}
 
-## Dynamic Interpreter Loading using REST API
+# Dynamic Interpreter Loading using REST API
+
+<div id="toc"></div>
 
 Zeppelin provides pluggable interpreter architecture which results in a wide and variety of the supported backend system. In this section, we will introduce **Dynamic interpreter loading** using **REST API**. This concept actually comes from [Zeppelin Helium Proposal](https://cwiki.apache.org/confluence/display/ZEPPELIN/Helium+proposal).
 Before we start, if you are not familiar with the concept of **Zeppelin interpreter**, you can check out [Overview of Zeppelin interpreter](../manual/interpreters.html) first.
@@ -32,7 +34,7 @@ In order to simplify using 3rd party interpreters, we changed this way to **dyna
 
 ## Load & Unload Interpreters Using REST API
 
-### 1. Load 
+### Load 
 You can **load** interpreters located in Maven repository using REST API, like this:
 
 ( Maybe, you are unfamiliar with `[interpreter_group_name]` or `[interpreter_name]`. If so, please checkout [Interpreters in Zeppelin](../manual/interpreter.html) again. )
@@ -83,7 +85,7 @@ The meaning of each parameters is:
 
 > <b>Please note: </b>The interpreters you downloaded need to be **reload**, when your Zeppelin server is down. 
 
-### 2. Unload
+### Unload
 If you want to **unload** the interpreters using REST API, 
 
 ```
