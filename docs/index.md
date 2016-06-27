@@ -163,11 +163,12 @@ Join to our [Mailing list](https://zeppelin.apache.org/community.html) and repor
   * [Interpreter API](./rest-api/rest-interpreter.html)
   * [Notebook API](./rest-api/rest-notebook.html)
   * [Configuration API](./rest-api/rest-configuration.html)
+  * [Credential API](./rest-api/rest-credential.html)
 * Security: available security support in Apache Zeppelin
   * [Authentication for NGINX](./security/authentication.html)
   * [Shiro Authentication](./security/shiroauthentication.html)
   * [Notebook Authorization](./security/notebook_authorization.html)
-  * [Interpreter & Data Resource Authorization](./security/interpreter_authorization.html)
+  * [Data Source Authorization](./security/datasource_authorization.html)
 * Contribute
   * [Writing a new Interpreter](./development/writingzeppelininterpreter.html)
   * [How to contribute (code)](./development/howtocontribute.html)
