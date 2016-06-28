@@ -106,7 +106,7 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
 
           $http.put(baseUrlSrv.getRestApiBase() + '/credential', request).
           success(function (data, status, headers, config) {
-              $scope.credentialInfo[index] = data.body;
+            $scope.credentialInfo[index] = data.body;
           }).
           error(function (data, status, headers, config) {
             console.log('Error %o %o', status, data.message);
@@ -134,16 +134,16 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
       callback: function(result) {
         if (result) {
           $http.delete(baseUrlSrv.getRestApiBase() + '/credential/' + entity).
-            success(function(data, status, headers, config) {
-              var index = _.findIndex($scope.credentialInfo, { 'entity': entity });
-              var arr = _.values($scope.credentialInfo);
-              arr.splice(index, 1);
-              getCredentialInfo();
-              console.log('Success %o %o', status, data.message);
-            }).
-            error(function(data, status, headers, config) {
-              console.log('Error %o %o', status, data.message);
-            });
+          success(function(data, status, headers, config) {
+            var index = _.findIndex($scope.credentialInfo, { 'entity': entity });
+            var arr = _.values($scope.credentialInfo);
+            arr.splice(index, 1);
+            getCredentialInfo();
+            console.log('Success %o %o', status, data.message);
+          }).
+          error(function(data, status, headers, config) {
+            console.log('Error %o %o', status, data.message);
+          });
         }
       }
     });
