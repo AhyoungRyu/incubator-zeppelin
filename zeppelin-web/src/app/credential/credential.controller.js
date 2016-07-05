@@ -125,7 +125,7 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
             form.$show();
           });
         } else {
-          getCredentialInfo();
+          form.$show();
         }
       }
     });
