@@ -19,10 +19,6 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
   $scope._ = _;
 
   $scope.credentialInfo = [];
-  $scope.credentialEntity = '';
-  $scope.credentialUsername = '';
-  $scope.credentialPassword = '';
-
   $scope.showAddNewCredentialInfo = false;
 
   var getCredentialInfo = function() {
@@ -36,9 +32,14 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
       });
   };
 
+  var credentialInfoTmp = [];
+  var removeTMPCredentialInfo = function(index) {
+    credentialInfoTmp.splice(index, 1);
+  };
+
   $scope.addNewCredentialInfo = function() {
-    if (_.isEmpty($scope.credentialEntity.trim()) ||
-      _.isEmpty($scope.credentialUsername.trim())) {
+    if (_.isEmpty($scope.entity.trim()) ||
+      _.isEmpty($scope.username.trim())) {
       BootstrapDialog.alert({
         closable: true,
         message: 'Username \\ Entity can not be empty.'
@@ -48,17 +49,17 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
 
     $http.put(baseUrlSrv.getRestApiBase() + '/credential',
     {
-      'entity': $scope.credentialEntity,
-      'username': $scope.credentialUsername,
-      'password': $scope.credentialPassword
+      'entity': $scope.entity,
+      'username': $scope.username,
+      'password': $scope.password
     }).
     success(function (data, status, headers, config) {
       BootstrapDialog.alert({
         closable: true,
         message: 'Successfully saved credentials.'
       });
-      $scope.resetCredentialInfo();
       getCredentialInfo();
+      $scope.resetCredentialInfo();
       $scope.showAddNewCredentialInfo = false;
       console.log('Success %o %o', status, data.message);
     }).
@@ -77,15 +78,20 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
   };
 
   $scope.resetCredentialInfo = function() {
-    $scope.credentialEntity = '';
-    $scope.credentialUsername = '';
-    $scope.credentialPassword = '';
+    $scope.entity = '';
+    $scope.username = '';
+    $scope.password = '';
   };
 
-  $scope.copyOriginCredentialsInfo = function(entity, username, password) {
-    angular.copy(entity);
-    angular.copy(username);
-    angular.copy(password);
+  $scope.copyOriginCredentialsInfo = function(entity) {
+    var index = _.findIndex($scope.credentialInfo, { 'entity': entity });
+    credentialInfoTmp[index] = angular.copy($scope.credentialInfo[index]);
+
+    ngToast.info({
+      content: 'Since entity is a unique key, you can edit only username & password',
+      verticalPosition: 'bottom',
+      timeout: '3000'
+    });
   };
 
   $scope.updateCredentialInfo = function(form, entity, username, password) {
@@ -98,15 +104,16 @@ angular.module('zeppelinWebApp').controller('CredentialCtrl', function($scope, $
       callback: function (result) {
         if (result) {
           var request = {
-            entity: angular.copy(entity),
-            username: angular.copy(username),
-            password: angular.copy(password)
+            entity: entity,
+            username: username,
+            password: password
           };
           var index = _.findIndex($scope.credentialInfo, { 'entity': entity });
 
-          $http.put(baseUrlSrv.getRestApiBase() + '/credential', request).
+          $http.put(baseUrlSrv.getRestApiBase() + '/credential/', request).
           success(function (data, status, headers, config) {
             $scope.credentialInfo[index] = data.body;
+            removeTMPCredentialInfo(index);
           }).
           error(function (data, status, headers, config) {
             console.log('Error %o %o', status, data.message);
