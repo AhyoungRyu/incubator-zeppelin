@@ -36,6 +36,8 @@
   <modules>
     <module>zeppelin-example-clock</module>
     <module>zeppelin-example-horizontalbar</module>
+    <!--module>zeppelin-example-wordcloud</module-->
+    <module>zeppelin-example-highcharts</module>
   </modules>
   
   <build>

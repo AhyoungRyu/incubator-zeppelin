@@ -1,0 +1,9 @@
+{
+  "type" : "APPLICATION",
+  "name" : "zeppelin.highcharts",
+  "description" : "Highcharts: basic line chart example",
+  "artifact" : "zeppelin-examples/zeppelin-example-highcharts/target/zeppelin-example-highcharts-0.7.0-SNAPSHOT.jar",
+  "className" : "org.apache.zeppelin.example.app.highcharts.HighCharts",
+  "resources" : [[":org.apache.zeppelin.interpreter.InterpreterResult"]],
+  "icon" : '<i class="fa fa-star-o"></i>'
+}
