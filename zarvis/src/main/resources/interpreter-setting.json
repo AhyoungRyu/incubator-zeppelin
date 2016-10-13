@@ -1,0 +1,18 @@
+[
+  {
+    "group": "zarvis",
+    "name": "zarvis",
+    "className": "org.apache.zeppelin.zarvis.ZarvisInterpreter",
+    "properties": {
+      "zeppelin.zarvis.data.dir": {
+        "envName": "ZARVIS_DATA_DIR",
+        "propertyName": "zeppelin.zarvis.data.dir",
+        "defaultValue": "zarvis",
+        "description": "data path for zavis"
+      }
+    },
+    "editor": {
+      "language": "scala"
+    }
+  }
+]
