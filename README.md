@@ -234,7 +234,7 @@ mvn clean package -Pspark-1.5 -Pmapr50 -DskipTests
 #### Ignite Interpreter
 
 ```sh
-mvn clean package -Dignite.version=1.6.0 -DskipTests
+mvn clean package -Dignite.version=1.7.0 -DskipTests
 ```
 
 #### Scalding Interpreter
