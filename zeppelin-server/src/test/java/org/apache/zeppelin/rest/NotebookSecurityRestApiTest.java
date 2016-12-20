@@ -174,7 +174,7 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
   }
 
   private void createParagraphForUser(String noteId, String user, String pwd, String title, String text) throws IOException {
-    String payload = "{\"title\":[\"" + title + "\"],\"text\":[\"" + text + "\"]}";
+    String payload = "{\"title\": \"" + title + "\" + , +  \"text\": \"" + text + "\"}";
     PostMethod post = httpPost(("/notebook/" + noteId + "/paragraph"), payload, user, pwd);
     post.releaseConnection();
   }
