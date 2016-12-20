@@ -111,15 +111,18 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
   }
 
   @Test
-  public void testThatSearchNoteBasedOnUserPermission() throws IOException {
+  public void testThatUserCanSearchNote() throws IOException {
     String noteId1 = createNoteForUser("test1", "admin", "password1");
     createParagraphForUser(noteId1, "title1", "ThisIsToTestSearchMethodWithPermissions 1");
 
     String noteId2 = createNoteForUser("test2", "user1", "password2");
     createParagraphForUser(noteId1, "title2", "ThisIsToTestSearchMethodWithPermissions 2");
 
-    setPermissionForNote(noteId1, "admin");
-    setPermissionForNote(noteId2, "user1");
+    //set permission
+    String payload = "{ \"owners\": [\"admin\", \"user1\"], \"readers\": [\"user2\"], \"writers\": [\"user2\"] }";
+    PutMethod put = httpPut("/notebook/" + noteId1 + "/permissions", payload , "admin", "password1");
+    assertThat("test set note permission method:", put, isAllowed());
+    put.releaseConnection();
 
     searchNoteBasedOnPermission("ThisIsToTestSearchMethodWithPermissions", "admin");
 
@@ -178,11 +181,6 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
     postNoteText.releaseConnection();
   }
 
-  private void setPermissionForNote(String noteId, String user) throws IOException {
-    String jsonRequest = "{\"owners\":[\"" + user + "\"],\"readers\":[\"" + user + "\"],\"writers\":[\"" + user + "\"]}";
-    PutMethod putPermission = httpPut("/notebook/" + noteId + "/permissions", jsonRequest);
-    putPermission.releaseConnection();
-  }
 
   private void searchNoteBasedOnPermission(String searchText, String user) throws IOException{
     GetMethod searchNote = httpGet("/notebook/search?q=" + searchText);
@@ -197,7 +195,6 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
       String userId = searchResult.get("id").split("/", 2)[0];
 
       GetMethod getPermission = httpGet("/notebook/" + userId + "/permissions");
-      getPermission.addRequestHeader("Origin", "http://localhost");
       Map<String, Object> resp = gson.fromJson(getPermission.getResponseBodyAsString(),
         new TypeToken<Map<String, Object>>() {
         }.getType());
