@@ -113,18 +113,16 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
   @Test
   public void testThatUserCanSearchNote() throws IOException {
     String noteId1 = createNoteForUser("test1", "admin", "password1");
-    createParagraphForUser(noteId1, "title1", "ThisIsToTestSearchMethodWithPermissions 1");
+    createParagraphForUser(noteId1, "admin", "password1", "title1", "ThisIsToTestSearchMethodWithPermissions 1");
 
     String noteId2 = createNoteForUser("test2", "user1", "password2");
-    createParagraphForUser(noteId1, "title2", "ThisIsToTestSearchMethodWithPermissions 2");
+    createParagraphForUser(noteId1, "admin", "password1", "title2", "ThisIsToTestSearchMethodWithPermissions 2");
 
-    //set permission
-    String payload = "{ \"owners\": [\"admin\", \"user1\"], \"readers\": [\"user2\"], \"writers\": [\"user2\"] }";
-    PutMethod put = httpPut("/notebook/" + noteId1 + "/permissions", payload , "admin", "password1");
-    assertThat("test set note permission method:", put, isAllowed());
-    put.releaseConnection();
+    //set permission for each note
+    setPermissionForNote(noteId1, "admin", "password1");
+    setPermissionForNote(noteId1, "user1", "password2");
 
-    searchNoteBasedOnPermission("ThisIsToTestSearchMethodWithPermissions", "admin");
+    searchNoteBasedOnPermission("ThisIsToTestSearchMethodWithPermissions", "admin", "password1");
 
     deleteNoteForUser(noteId1, "admin", "password1");
     deleteNoteForUser(noteId2, "user1", "password2");
@@ -175,15 +173,22 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
     }
   }
 
-  private void createParagraphForUser(String noteId, String title, String text) throws IOException {
-    String jsonRequest = "{\"title\":\"" + title +  "\"text\": \"" + text + "\"}";
-    PostMethod postNoteText = httpPost("/notebook/" + noteId + "/paragraph", jsonRequest);
-    postNoteText.releaseConnection();
+  private void createParagraphForUser(String noteId, String user, String pwd, String title, String text) throws IOException {
+    String payload = "{\"title\":\"" + title +  "\"text\": \"" + text + "\"}";
+    PostMethod post = httpPost(("/notebook/" + noteId + "/paragraph"), payload, user, pwd);
+    post.releaseConnection();
+  }
+
+  private void setPermissionForNote(String noteId, String user, String pwd) throws IOException {
+    String payload = "{\"owners\":[\"" + user + "\"],\"readers\":[\"" + user + "\"],\"writers\":[\"" + user + "\"]}";
+    PutMethod put = httpPut(("/notebook/" + noteId + "/permissions"), payload, user, pwd);
+    assertThat("test set note permission method:", put, isAllowed());
+    put.releaseConnection();
   }
 
 
-  private void searchNoteBasedOnPermission(String searchText, String user) throws IOException{
-    GetMethod searchNote = httpGet("/notebook/search?q=" + searchText);
+  private void searchNoteBasedOnPermission(String searchText, String user, String pwd) throws IOException{
+    GetMethod searchNote = httpGet(("/notebook/search?q=" + searchText), user, pwd);
     Map<String, Object> respSearchResult = gson.fromJson(searchNote.getResponseBodyAsString(),
       new TypeToken<Map<String, Object>>() {
       }.getType());
@@ -194,7 +199,7 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
       Map<String, String> searchResult = (Map<String, String>) searchBody.get(i);
       String userId = searchResult.get("id").split("/", 2)[0];
 
-      GetMethod getPermission = httpGet("/notebook/" + userId + "/permissions");
+      GetMethod getPermission = httpGet(("/notebook/" + userId + "/permissions"), user, pwd);
       Map<String, Object> resp = gson.fromJson(getPermission.getResponseBodyAsString(),
         new TypeToken<Map<String, Object>>() {
         }.getType());
