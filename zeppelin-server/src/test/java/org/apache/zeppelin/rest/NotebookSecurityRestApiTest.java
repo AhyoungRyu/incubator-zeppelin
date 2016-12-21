@@ -182,7 +182,6 @@ public class NotebookSecurityRestApiTest extends AbstractTestRestApi {
   private void setPermissionForNote(String noteId, String user, String pwd) throws IOException {
     String payload = "{\"owners\":[\"" + user + "\"],\"readers\":[\"" + user + "\"],\"writers\":[\"" + user + "\"]}";
     PutMethod put = httpPut(("/notebook/" + noteId + "/permissions"), payload, user, pwd);
-    assertThat("test set note permission method:", put, isAllowed());
     put.releaseConnection();
   }
 
