@@ -73,6 +73,7 @@ public class ShellInterpreterTest {
       result = shell.interpret("invalid_command\nls", context);
     }
     assertEquals(InterpreterResult.Code.SUCCESS, result.code());
+    System.out.println(result.message().get(0).getData());
     assertTrue(result.message().get(0).getData().contains("invalid_command"));
   }
 
@@ -87,7 +88,6 @@ public class ShellInterpreterTest {
       result = shell.interpret("sleep 61", context);
     }
 
-    assertEquals(InterpreterResult.Code.SUCCESS, result.code());
     assertEquals(Code.INCOMPLETE, result.code());
     assertTrue(result.message().get(0).getData().contains("Paragraph received a SIGTERM"));
   }
