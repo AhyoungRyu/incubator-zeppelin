@@ -73,7 +73,7 @@ public class ShellInterpreterTest {
       result = shell.interpret("invalid_command\nls", context);
     }
     assertEquals(InterpreterResult.Code.SUCCESS, result.code());
-    System.out.println(result.message().get(0).getData());
+    System.out.println(result.message());
     assertTrue(result.message().get(0).getData().contains("invalid_command"));
   }
 
