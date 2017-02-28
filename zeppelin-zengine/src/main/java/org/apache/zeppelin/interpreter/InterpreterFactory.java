@@ -425,7 +425,7 @@ public class InterpreterFactory implements InterpreterGroupFactory {
         return interpreter;
       }
 
-      // next, assume replName is 'group' of interpreter ('name' is ommitted)
+      // next, assume replName is 'group' of interpreter ('name' is omitted)
       // search interpreter group and return first interpreter.
       setting = getInterpreterSettingByGroup(settings, replName);
 
