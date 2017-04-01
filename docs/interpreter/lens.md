@@ -31,7 +31,7 @@ limitations under the License.
 ## Installing and Running Lens
 In order to use Lens interpreters, you may install Apache Lens in some simple steps:
 
-1. Download Lens for latest version from [the ASF](http://www.apache.org/dyn/closer.lua/lens/2.3-beta). Or the older release can be found [in the Archives](http://archive.apache.org/dist/lens/).
+1. Download latest version of Lens from [download page](https://lens.apache.org/releases/download.html). Or the older release can be found [in the Archives](http://archive.apache.org/dist/lens/).
 2. Before running Lens, you have to set HIVE_HOME and HADOOP_HOME. If you want to get more information about this, please refer to [here](http://lens.apache.org/lenshome/install-and-run.html#Installation). Lens also provides Pseudo Distributed mode. [Lens pseudo-distributed setup](http://lens.apache.org/lenshome/pseudo-distributed-setup.html) is done by using [docker](https://www.docker.com/). Hive server and hadoop daemons are run as separate processes in lens pseudo-distributed setup.
 3. Now, you can start lens server (or stop).
 
